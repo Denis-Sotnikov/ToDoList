@@ -25,5 +25,9 @@ public class TaskServlet extends HttpServlet {
             PrintWriter writer = new PrintWriter(resp.getOutputStream());
             writer.println(jso);
             writer.flush();
+            Task task = store.findById(6);
+            System.out.println("%%%%%%%%%%%%%%%%%");
+            System.out.println(task.getDescription());
+            store.update(task);
         }
 }
