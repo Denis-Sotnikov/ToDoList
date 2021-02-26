@@ -13,6 +13,7 @@ public class Task {
     private String description;
     private Timestamp created;
     private boolean done;
+    private String author;
 
     public Task() {
         this.created = new Timestamp(new Date().getTime());
@@ -20,6 +21,13 @@ public class Task {
 
     public Task(String description) {
         this.description = description;
+        this.created = new Timestamp(new Date().getTime());
+        this.done = false;
+    }
+
+    public Task(String description, String author) {
+        this.description = description;
+        this.author = author;
         this.created = new Timestamp(new Date().getTime());
         this.done = false;
     }
@@ -63,13 +71,21 @@ public class Task {
         this.created = created;
     }
 
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
     @Override
     public String toString() {
-        return "Task{" +
-                "id=" + id +
-                ", description='" + description + '\'' +
-                ", created=" + created +
-                ", done=" + done +
-                '}';
+        return "Task{"
+                + "id=" + id
+                + ", description='" + description + '\''
+                + ", created=" + created
+                + ", done=" + done
+                + '}';
     }
 }

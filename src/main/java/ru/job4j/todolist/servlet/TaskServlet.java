@@ -17,17 +17,17 @@ public class TaskServlet extends HttpServlet {
         @Override
         protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
             Store store = new HbmToDoList();
+            String author = req.getParameter("author");
+            System.out.println("author = " + author);
             resp.setContentType("application/json; charset=windows-1251");
             String description = req.getParameter("description");
-            store.save(new Task(description));
+            System.out.println("description = " + description);
+            store.save(new Task(description, author));
             Collection<Task> list = store.findAllTask();
             String jso = new Gson().toJson(list);
+            System.out.println(jso);
             PrintWriter writer = new PrintWriter(resp.getOutputStream());
             writer.println(jso);
             writer.flush();
-            Task task = store.findById(6);
-            System.out.println("%%%%%%%%%%%%%%%%%");
-            System.out.println(task.getDescription());
-            store.update(task);
         }
 }

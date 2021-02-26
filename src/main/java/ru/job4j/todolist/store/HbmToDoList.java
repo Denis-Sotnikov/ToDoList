@@ -7,8 +7,10 @@ import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import ru.job4j.todolist.model.Task;
+import ru.job4j.todolist.model.User;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.function.Function;
 
 public class HbmToDoList  implements Store, AutoCloseable {
@@ -56,6 +58,24 @@ public class HbmToDoList  implements Store, AutoCloseable {
                     return true;
                 }
         );
+    }
+
+    @Override
+    public User create(User user) {
+        this.tx(session -> session.save(user));
+        return user;
+    }
+
+    @Override
+    public User findUserByName(String key) {
+        System.out.println("here");
+        Session session = sf.openSession();
+        session.beginTransaction();
+        List result = session.createQuery(
+                "from ru.job4j.todolist.model.User where name = " + "'" + key + "'").list();
+        session.getTransaction().commit();
+        session.close();
+        return (User) result.get(0);
     }
 
     @Override
