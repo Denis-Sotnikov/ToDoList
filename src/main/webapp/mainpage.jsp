@@ -75,7 +75,7 @@
             <input  type="checkbox" style="padding-left: 10px" name = "box" id="box" value="Показать все задачи">
         </div>
         <div class="form-group">
-            <textarea name = "author" class="form-control" id="author" value=<c:out value="<%=userMain.getName()%>"/>><c:out value="<%=userMain.getName()%>"/></textarea>
+            <textarea hidden name = "author" class="form-control" id="author" value=<c:out value="<%=userMain.getName()%>"/>><c:out value="<%=userMain.getName()%>"/></textarea>
         </div>
         <button type="button" class="btn btn-primary" onclick="sendGreeting()" id = "bt">Submit</button>
     </form>
