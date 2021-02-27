@@ -20,5 +20,7 @@
         <mapping class="ru.job4j.todolist.model.Task" />
         <mapping class="ru.job4j.todolist.model.User" />
         <mapping class="ru.job4j.todolist.model.Role" />
+        <mapping class="ru.job4j.todolist.model.cars.MarkaCar" />
+        <mapping class="ru.job4j.todolist.model.cars.ModelCar" />
     </session-factory>
 </hibernate-configuration>
