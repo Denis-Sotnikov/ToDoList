@@ -16,6 +16,8 @@
     HttpSession sc = request.getSession();
     if (sc.getAttribute("user") != null) {
         userMain = (User) sc.getAttribute("user");
+    } else {
+        response.sendRedirect(request.getContextPath() + "/index.do");
     }
 %>
 <body>
@@ -40,8 +42,8 @@
             $.each(data, function (i, item) {
                 if (document.getElementById('box').checked) { // Включен
                     if (item.done === true) {
-                        trHTML += '<tr><td>' + item.id + '</td><td>' + item.description + '</td><td>' + item.created + '</td><td>' + '<input id="gal" type="checkbox" checked></td></tr>';
-                    } else {trHTML += '<tr><td>' + item.id + '</td><td>' + item.description + '</td><td>' + item.created + '</td><td>' + '<input id="gal" type="checkbox"></td></tr>';}
+                        trHTML += '<tr><td>' + item.id + '</td><td>' + item.description + '</td><td>' + item.created + '</td><td>' + '<input id="gal" type="checkbox" checked></td><td>' + item.author + '</td></tr>';
+                    } else {trHTML += '<tr><td>' + item.id + '</td><td>' + item.description + '</td><td>' + item.created + '</td><td>' + '<input id="gal" type="checkbox"></td><td>' + item.author + '</td></tr>';}
                 } else {
                     if (item.done === false) {
                         trHTML += '<tr><td>' + item.id + '</td><td>' + item.description + '</td><td>' + item.created + '</td><td>' + '<input id="gal" type="checkbox"></td><td>' + item.author + '</td></tr>';
@@ -91,7 +93,6 @@
         </tr>
         </thead>
         <tbody>
-
         </tbody>
     </table>
 </div>
