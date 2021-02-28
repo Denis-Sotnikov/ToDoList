@@ -20,8 +20,10 @@
         <mapping class="ru.job4j.todolist.model.Task" />
         <mapping class="ru.job4j.todolist.model.User" />
         <mapping class="ru.job4j.todolist.model.Role" />
-        <mapping class="ru.job4j.todolist.model.cars.MarkaCar" />
-        <mapping class="ru.job4j.todolist.model.cars.ModelCar" />
+<!--        <mapping class="ru.job4j.todolist.model.cars.MarkaCar" />-->
+<!--        <mapping class="ru.job4j.todolist.model.cars.ModelCar" />-->
+        <mapping class="ru.job4j.todolist.model.lazyinitialization.MarkaCar" />
+        <mapping class="ru.job4j.todolist.model.lazyinitialization.ModelCar" />
         <mapping class="ru.job4j.todolist.model.book.Author" />
         <mapping class="ru.job4j.todolist.model.book.Book" />
     </session-factory>
