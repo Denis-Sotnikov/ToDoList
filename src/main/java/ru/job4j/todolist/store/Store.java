@@ -1,6 +1,5 @@
 package ru.job4j.todolist.store;
 
-import org.hibernate.SessionFactory;
 import ru.job4j.todolist.model.Task;
 import ru.job4j.todolist.model.User;
 

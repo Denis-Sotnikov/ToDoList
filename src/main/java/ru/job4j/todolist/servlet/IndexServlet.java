@@ -14,8 +14,6 @@ public class IndexServlet extends HttpServlet {
         System.out.println("sc.getAttribute(\"user\") = " + sc.getAttribute("user"));
         if (sc.getAttribute("user") != null) {
             resp.sendRedirect(req.getContextPath() + "/mainpage.jsp");
-//            req.getRequestDispatcher("mainpage.html").forward(req, resp);
-//            req.getRequestDispatcher("post/posts.jsp").forward(req, resp);
         } else {
             req.getRequestDispatcher("autorization.jsp").forward(req, resp);
         }
