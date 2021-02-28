@@ -22,7 +22,5 @@
         <mapping class="ru.job4j.todolist.model.Role" />
         <mapping class="ru.job4j.todolist.model.lazyinitialization.MarkaCar" />
         <mapping class="ru.job4j.todolist.model.lazyinitialization.ModelCar" />
-        <mapping class="ru.job4j.todolist.model.book.Author" />
-        <mapping class="ru.job4j.todolist.model.book.Book" />
     </session-factory>
 </hibernate-configuration>
