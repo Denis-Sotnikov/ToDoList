@@ -22,5 +22,5 @@
 
       env:
         global:
-          - CODECOV_TOKEN = "c785c4ba-3ae2-4a1e-a313-c8dfbc136352"
+          - CODECOV_TOKEN = "21da95b5-2232-482f-99ec-b7cde7ce801b"
 
