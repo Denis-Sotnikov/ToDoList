@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/Denis-Sotnikov/ToDoList.svg?branch=master)](https://travis-ci.org/Denis-Sotnikov/ToDoList)
+[![codecov](https://codecov.io/gh/Denis-Sotnikov/ToDoList/branch/master/graph/badge.svg?token=55CPQ3HPE5)](https://codecov.io/gh/Denis-Sotnikov/ToDoList)
 ToDoList<br>
 Проект представляет собой простой менеджер задач.<br>
 Функционал проекта:<br>
