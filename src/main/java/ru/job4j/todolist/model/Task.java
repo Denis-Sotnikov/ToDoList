@@ -14,7 +14,9 @@ public class Task {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String description;
-    private Timestamp created;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date created;
     private boolean done;
     private String author;
 
@@ -77,7 +79,7 @@ public class Task {
         this.description = description;
     }
 
-    public Timestamp getCreated() {
+    public Date getCreated() {
         return created;
     }
 
