@@ -13,7 +13,7 @@ public class IndexServlet extends HttpServlet {
         HttpSession sc = req.getSession();
         System.out.println("sc.getAttribute(\"user\") = " + sc.getAttribute("user"));
         if (sc.getAttribute("user") != null) {
-            resp.sendRedirect(req.getContextPath() + "/mainpage.jsp");
+            resp.sendRedirect(req.getContextPath() + "/task.do");
         } else {
             req.getRequestDispatcher("autorization.jsp").forward(req, resp);
         }

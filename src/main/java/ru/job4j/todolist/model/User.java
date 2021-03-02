@@ -11,7 +11,7 @@ public class User {
     private int id;
 
     private String name;
-    private String password = "8";
+    private String password;
 
     @ManyToOne
     @JoinColumn(name = "role_id")

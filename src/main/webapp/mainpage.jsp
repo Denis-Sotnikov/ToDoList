@@ -2,6 +2,8 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ page import="ru.job4j.todolist.store.HbmToDoList" %>
 <%@ page import="ru.job4j.todolist.model.User" %>
+<%@ page import="ru.job4j.todolist.model.Category" %>
+<%@ page import="java.util.List" %>
 <!doctype html>
 <html lang="en">
 <head>
@@ -13,6 +15,8 @@
 </head>
 <%
     User userMain = new User();
+    List<Category> categories = HbmToDoList.instanceOf().allCategories();
+    System.out.println("String categoryList = " + categories);
     HttpSession sc = request.getSession();
     if (sc.getAttribute("user") != null) {
         userMain = (User) sc.getAttribute("user");
@@ -29,9 +33,10 @@
         }
 
         $.ajax({
-            type: 'GET',
+            type: 'POST',
             url: 'http://localhost:8080/todolist/task.do',
             data: {
+                'cIds': $('#cIds').serialize(),
                 'description': $('#description').val(), 'author': $('#author').val()
             },
             dataType: 'json'
@@ -57,7 +62,7 @@
     }
 </script>
 
-<div style="width: 50%; padding-left: 30px; padding-top: 30px" ;  >
+<div style="width: 60%; padding-left: 30px; padding-top: 30px" ;  >
     <div class="row">
         <ul class="nav">
             <li class="nav-item">
@@ -67,8 +72,18 @@
     </div>
     <form>
         <div class="form-group">
-            <label for="description">Добавить новое задание</label><br>
+            <label class="col-form-label col-sm-3" style="font-weight: 900" for="description">Добавить новое задание</label><br>
             <textarea name = "description" class="form-control" id="description"> </textarea>
+        </div>
+        <div class="form-group row">
+            <label class="col-form-label col-sm-3" for="cIds" style="font-weight: 900">Выбрать категории</label>
+            <div class="col-sm-5">
+                <select class="form-control" name="cIds" id="cIds" multiple>
+                    <c:forEach items="${categories}" var="category">
+                        <option value='<c:out value="${category.id}"/>'>${category.name}</option>
+                    </c:forEach>
+                </select>
+            </div>
         </div>
         <div class="form-group">
             <label for="box">Показать все задачи</label>
@@ -77,7 +92,7 @@
         <div class="form-group">
             <textarea hidden name = "author" class="form-control" id="author" value=<c:out value="<%=userMain.getName()%>"/>><c:out value="<%=userMain.getName()%>"/></textarea>
         </div>
-        <button type="button" class="btn btn-primary" onclick="sendGreeting()" id = "bt">Submit</button>
+        <button type="button" class="btn btn-primary" onclick="sendGreeting()" id = "bt">Отправить</button>
     </form>
 
     <br>

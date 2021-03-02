@@ -15,10 +15,21 @@ public class AuthServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Store store = new HbmToDoList();
-        String name = req.getParameter("name");
+
+        if (req.getParameter("password").isEmpty() || req.getParameter("name").isEmpty()) {
+            req.setAttribute("error", "Не верный email или пароль");
+            req.getRequestDispatcher("autorization.jsp").forward(req, resp);
+        }
         String password = req.getParameter("password");
+        String name = req.getParameter("name");
+
         User user = store.findUserByName(name);
-        if (user != null && user.getPassword().equals(password)) {
+        if (user.getName() == null || user.getPassword() == null) {
+            req.setAttribute("error", "Не верный email или пароль");
+            req.getRequestDispatcher("autorization.jsp").forward(req, resp);
+        }
+
+        if (user.getPassword().equals(password)) {
             HttpSession sc = req.getSession();
             sc.setAttribute("user", user);
             resp.sendRedirect(req.getContextPath() + "/index.do");

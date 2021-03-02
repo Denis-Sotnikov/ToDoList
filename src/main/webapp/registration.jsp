@@ -55,6 +55,12 @@
                         <label>Пароль</label>
                         <input type="text" class="form-control" name="password">
                     </div>
+
+                    <% if (request.getAttribute("error") != null) { %>
+                    <div>
+                        <label><%=request.getAttribute("error")%></label>
+                    </div>
+                    <% } %>
                     <button type="submit" class="btn btn-primary">Зарегистрировать</button>
                 </form>
             </div>

@@ -6,9 +6,11 @@ import org.hibernate.Transaction;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
+import ru.job4j.todolist.model.Category;
 import ru.job4j.todolist.model.Task;
 import ru.job4j.todolist.model.User;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.function.Function;
@@ -23,9 +25,16 @@ public class HbmToDoList  implements Store, AutoCloseable {
     public Collection<Task> findAllTask() {
         return this.tx(
                 session -> session.createQuery(
-                        "from ru.job4j.todolist.model.Task")
-                        .list()
+                "select distinct t from Task t left join fetch t.listOfCategory").list()
         );
+    }
+
+    private static final class Lazy {
+        private static final HbmToDoList INSTANCE = new HbmToDoList();
+    }
+
+    public static HbmToDoList instanceOf() {
+        return Lazy.INSTANCE;
     }
 
     @Override
@@ -68,15 +77,31 @@ public class HbmToDoList  implements Store, AutoCloseable {
 
     @Override
     public User findUserByName(String key) {
-        System.out.println("here");
+        User user = new User();
         Session session = sf.openSession();
         session.beginTransaction();
+        if (session.createQuery(
+                "from ru.job4j.todolist.model.User where name = " + "'" + key + "'").list().isEmpty()) {
+            return user;
+        }
         List result = session.createQuery(
                 "from ru.job4j.todolist.model.User where name = " + "'" + key + "'").list();
         session.getTransaction().commit();
         session.close();
         return (User) result.get(0);
     }
+
+    @Override
+    public List<Category> allCategories() {
+        List<Category> categories = new ArrayList<>();
+        categories = this.tx(session -> {
+            return session.createQuery(
+                    "from ru.job4j.todolist.model.Category").list();
+        }
+        );
+        return categories;
+    }
+
 
     @Override
     public void close() throws Exception {

@@ -20,6 +20,11 @@ public class RegServlet extends HttpServlet {
         role.setName("user");
         role.setId(1);
         Store store = new HbmToDoList();
+        System.out.println(" i am here");
+        if (store.findUserByName(req.getParameter("name")).getName().equals(req.getParameter("name"))) {
+            req.setAttribute("error", "Пользователь с таким именем уже существует. Попробуйте другое имя.");
+            req.getRequestDispatcher("registration.jsp").forward(req, resp);
+        }
         store.create(User.of(req.getParameter("name"),  req.getParameter("password"), role));
         resp.sendRedirect(req.getContextPath() + "/index.do");
     }

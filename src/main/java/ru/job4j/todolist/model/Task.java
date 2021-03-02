@@ -2,7 +2,10 @@ package ru.job4j.todolist.model;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "item")
@@ -14,6 +17,9 @@ public class Task {
     private Timestamp created;
     private boolean done;
     private String author;
+
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<Category> listOfCategory = new ArrayList<>();
 
     public Task() {
         this.created = new Timestamp(new Date().getTime());
@@ -38,6 +44,14 @@ public class Task {
         this.created = created;
         this.done = done;
     }
+
+    public Task(String description, String author, List<Category> categories) {
+        this.description = description;
+        this.author = author;
+        this.created = new Timestamp(new Date().getTime());
+        this.done = false;
+        this.listOfCategory.addAll(categories);
+        }
 
     public int getId() {
         return id;
@@ -79,6 +93,36 @@ public class Task {
         this.author = author;
     }
 
+    public List<Category> getListOfCategory() {
+        return listOfCategory;
+    }
+
+    public void setListOfCategory(List<Category> listOfCategory) {
+        this.listOfCategory = listOfCategory;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Task task = (Task) o;
+        return id == task.id
+                && done == task.done
+                && Objects.equals(description, task.description)
+                && Objects.equals(created, task.created)
+                && Objects.equals(author, task.author)
+                && Objects.equals(listOfCategory, task.listOfCategory);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, description, created, done, author, listOfCategory);
+    }
+
     @Override
     public String toString() {
         return "Task{"
@@ -86,6 +130,10 @@ public class Task {
                 + ", description='" + description + '\''
                 + ", created=" + created
                 + ", done=" + done
+                + ", author='" + author + '\''
+                + ", listOfCategory=" + listOfCategory
                 + '}';
     }
 }
+
+
