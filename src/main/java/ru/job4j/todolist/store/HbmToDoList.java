@@ -81,11 +81,11 @@ public class HbmToDoList  implements Store, AutoCloseable {
         Session session = sf.openSession();
         session.beginTransaction();
         if (session.createQuery(
-                "from ru.job4j.todolist.model.User where name = " + "'" + key + "'").list().isEmpty()) {
+                "from ru.job4j.todolist.model.User u where u.name = :nam").setParameter("nam", key).list().isEmpty()) {
             return user;
         }
         List result = session.createQuery(
-                "from ru.job4j.todolist.model.User where name = " + "'" + key + "'").list();
+                "from ru.job4j.todolist.model.User u where u.name = :nam").setParameter("nam", key).list();
         session.getTransaction().commit();
         session.close();
         return (User) result.get(0);
