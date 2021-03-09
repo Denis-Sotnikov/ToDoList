@@ -84,7 +84,7 @@ public class HbmToDoList  implements Store, AutoCloseable {
         Optional<User> optionalUser =  session.createQuery("from ru.job4j.todolist.model.User u where u.name = :nam").setParameter("nam", key).uniqueResultOptional();
         session.getTransaction().commit();
         session.close();
-        return optionalUser.isPresent() ? optionalUser.get() : user;
+        return optionalUser.orElse(user);
     }
 
     @Override
