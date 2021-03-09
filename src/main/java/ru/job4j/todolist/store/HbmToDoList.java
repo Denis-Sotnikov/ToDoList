@@ -13,6 +13,7 @@ import ru.job4j.todolist.model.User;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Function;
 
 public class HbmToDoList  implements Store, AutoCloseable {
@@ -77,18 +78,13 @@ public class HbmToDoList  implements Store, AutoCloseable {
 
     @Override
     public User findUserByName(String key) {
-        User user = new User();
+        User user = new User(key);
         Session session = sf.openSession();
         session.beginTransaction();
-        if (session.createQuery(
-                "from ru.job4j.todolist.model.User u where u.name = :nam").setParameter("nam", key).list().isEmpty()) {
-            return user;
-        }
-        List result = session.createQuery(
-                "from ru.job4j.todolist.model.User u where u.name = :nam").setParameter("nam", key).list();
+        Optional<User> optionalUser =  session.createQuery("from ru.job4j.todolist.model.User u where u.name = :nam").setParameter("nam", key).uniqueResultOptional();
         session.getTransaction().commit();
         session.close();
-        return (User) result.get(0);
+        return optionalUser.isPresent() ? optionalUser.get() : user;
     }
 
     @Override

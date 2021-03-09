@@ -19,7 +19,6 @@ public class AuthFilter implements Filter {
             chain.doFilter(sreq, sresp);
             return;
         }
-        System.out.println("filter");
         if (req.getSession().getAttribute("user") == null) {
             resp.sendRedirect(req.getContextPath() + "/autorization.jsp");
             return;

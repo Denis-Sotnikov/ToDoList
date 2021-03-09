@@ -13,6 +13,13 @@ public class User {
     private String name;
     private String password;
 
+    public User() {
+    }
+
+    public User(String name) {
+        this.name = name;
+    }
+
     @ManyToOne
     @JoinColumn(name = "role_id")
     private Role role;
